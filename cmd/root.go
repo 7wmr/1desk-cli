@@ -20,8 +20,11 @@ var config conf.Config
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "1desk",
-	Short: "A brief description of your application",
-	Long:  `TBC`,
+	Short: "A command line tool for administering 1Desk instances.",
+	Long: `
+		This command line tool should be used for 
+		the administration of 1Desk instances. 
+	`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
