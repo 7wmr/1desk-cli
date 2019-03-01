@@ -3,3 +3,6 @@ contexts:
 - auth: YWRtaW46QXV0b21hdGVOMFc=
   domain: eu1.demo.1desk.ai
   name: eu-demo
+- auth: YWRtaW46QXV0b21hdGVOMFc=
+  domain: stg.1desk.ai
+  name: stg
