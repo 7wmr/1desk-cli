@@ -1,0 +1,5 @@
+currentcontext: eu-demo
+contexts:
+- auth: YWRtaW46QXV0b21hdGVOMFc=
+  domain: eu1.demo.1desk.ai
+  name: eu-demo
