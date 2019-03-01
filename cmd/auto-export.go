@@ -101,7 +101,18 @@ var exportCmd = &cobra.Command{
 			return
 		}
 
-		fileLength, err := file.WriteString(string(automationJSON))
+		func jsonPrettyPrint(in string) string {
+			var out bytes.Buffer
+			err := json.Indent(&out, []byte(in), "", "\t")
+			if err != nil {
+				return in
+			}
+			return out.String()
+		}
+
+		prettyJSON = jsonPrettyPrint(automationJSON)
+
+		fileLength, err := file.WriteString(string(prettyJSON))
 		if err != nil {
 			fmt.Println("Error issue writing to file:", err)
 			file.Close()
