@@ -12,5 +12,8 @@
 *.out
 
 
-# Test data
-sample.json
+# Exclude exported automation
+Auto-*.json
+Comp-*.json
+Hand-*.json
+Tool-*.json
