@@ -110,7 +110,7 @@ var exportCmd = &cobra.Command{
 			return out.String()
 		}
 
-		prettyJSON = jsonPrettyPrint(automationJSON)
+		prettyJSON := jsonPrettyPrint(automationJSON)
 
 		fileLength, err := file.WriteString(string(prettyJSON))
 		if err != nil {
