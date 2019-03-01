@@ -83,7 +83,7 @@ func (a *Auth) GetToken(context *Context) (Token, error) {
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 
-	fmt.Println(body)
+	fmt.Println(string(body))
 
 	json.Unmarshal(body, &token)
 
