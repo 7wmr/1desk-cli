@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"bytes"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -29,16 +28,6 @@ func (e *Automation) GetFileName() string {
 		e.Name,
 		e.VersionNumber,
 		e.ID)
-}
-
-// PrettyJSON returns indented JSON data.
-func PrettyJSON(data string) string {
-	var pretty bytes.Buffer
-	err := json.Indent(&pretty, []byte(data), "", "\t")
-	if err != nil {
-		return data
-	}
-	return pretty.String()
 }
 
 // exportCmd represents the export command
@@ -112,7 +101,7 @@ var exportCmd = &cobra.Command{
 			return
 		}
 
-		fileLength, err := file.WriteString(PrettyJSON(string(automationJSON)))
+		fileLength, err := file.WriteString(conf.PrettyJSON(string(automationJSON)))
 		if err != nil {
 			fmt.Println("Error issue writing to file:", err)
 			file.Close()
