@@ -22,8 +22,8 @@ type Auth struct {
 
 // Token returned from API request (valid approx 5 mins idle time).
 type Token struct {
-	Access string
-	Type   string
+	Access string `json:"access_token"`
+	Type   string `json:"token_type"`
 }
 
 // GetHeader return the header string for the token.
