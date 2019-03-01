@@ -38,7 +38,7 @@ func PrettyJSON(data string) string {
 	if err != nil {
 		return in
 	}
-	return pretty
+	return pretty.String()
 }
 
 // exportCmd represents the export command
