@@ -67,6 +67,10 @@ var exportCmd = &cobra.Command{
 			return
 		}
 
+		if debugFlag {
+			fmt.Println("Debug token response", token)
+		}
+
 		req.Header.Add(token.GetHeader())
 		resp, err := client.Do(req)
 		if err != nil {
