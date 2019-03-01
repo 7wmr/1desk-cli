@@ -62,7 +62,7 @@ func (a *Auth) GetToken(context *Context) (Token, error) {
 	// Decode username and password.
 	a.Decode()
 
-	var url = fmt.Sprintf("https://%s//api/auth-service/token/", context.Domain)
+	var url = fmt.Sprintf("https://%s/api/auth-service/token/", context.Domain)
 	var post = fmt.Sprintf("{ \"username\": \"%s\", \"password\": \"%s\", \"grant_type\": \"password\" }", a.Username, a.Password)
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(post)))
