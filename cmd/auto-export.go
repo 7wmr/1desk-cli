@@ -53,7 +53,7 @@ var exportCmd = &cobra.Command{
 		// Arguments to be appended to API call.
 		arguments := "includeLinkedAutomaton=false"
 		if includeLinked {
-			arguments += "includeLinkedAutomaton=true"
+			arguments = "includeLinkedAutomaton=true"
 		}
 
 		var url string = fmt.Sprintf("https://%s/api/automaton-import-export/export/%d?%s", context.Domain, automationID, arguments)
