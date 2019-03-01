@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"crypto/tls"
-	"encoding/xml"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -13,31 +13,26 @@ import (
 
 var automationID int
 
-// Automation xml data.
+// Automation json data.
 type Automation struct {
-	XMLName xml.Name `xml:"automaton"`
-	Name    string   `xml:"name"`
-	ID      string   `xml:"automatonID"`
-}
-
-// AutomationExport xml data.
-type AutomationExport struct {
-	XMLName    xml.Name   `xml:"automatonExport"`
-	Automation Automation `xml:"automaton"`
+	Name      string `json:"name"`
+	ID        int    `json:"id"`
+	VersionID int    `json:versionId`
 }
 
 // GetFileName get the XML file name for automation export.
-func (e *AutomationExport) GetFileName() string {
+func (e *Automation) GetFileName() string {
 	return fmt.Sprintf(
-		"%s_%s.xml",
-		e.Automation.Name,
-		e.Automation.ID)
+		"%s_v%s_%s.json",
+		e.Name,
+		e.VersionID,
+		e.ID)
 }
 
 // exportCmd represents the export command
 var exportCmd = &cobra.Command{
 	Use:   "export",
-	Short: "Export automation XML file from instance.",
+	Short: "Export automation JSON file from instance.",
 	Long:  `TBC`,
 	Run: func(cmd *cobra.Command, args []string) {
 		context, err := config.GetCurrentContext()
@@ -53,7 +48,7 @@ var exportCmd = &cobra.Command{
 		}
 		client := &http.Client{Transport: tr}
 
-		var url string = fmt.Sprintf("https://%s/mapi/IPautomata/v1/export/automata/%d", context.Domain, automationID)
+		var url string = fmt.Sprintf("https://%s/api/automaton-import-export/export/%d", context.Domain, automationID)
 		if debugFlag {
 			fmt.Println("Debug request url:", url)
 		}
@@ -77,16 +72,16 @@ var exportCmd = &cobra.Command{
 		}
 
 		defer resp.Body.Close()
-		automationXML, err := ioutil.ReadAll(resp.Body)
+		automationJSON, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			fmt.Println("Error getting automation xml:", err)
 			return
 		}
 
-		var automationExport AutomationExport
-		xml.Unmarshal(automationXML, &automationExport)
+		var automation Automation
+		json.Unmarshal(automationJSON, &automation)
 
-		var fileName string = automationExport.GetFileName()
+		var fileName string = automation.GetFileName()
 
 		file, err := os.Create(fileName)
 		if err != nil {
@@ -94,7 +89,7 @@ var exportCmd = &cobra.Command{
 			return
 		}
 
-		fileLength, err := file.WriteString(string(automationXML))
+		fileLength, err := file.WriteString(string(automationJSON))
 		if err != nil {
 			fmt.Println("Error issue writing to file:", err)
 			file.Close()
