@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/ipsoft-tools/1desk-cli/conf"
 	"github.com/spf13/cobra"
 )
 
@@ -59,7 +60,10 @@ var exportCmd = &cobra.Command{
 			return
 		}
 
-		req.Header.Add("Authorization", "Basic "+context.Auth)
+		auth := conf.Auth{Encoded: context.Auth}
+		token := auth.GetToken(context)
+
+		req.Header.Add("Authorization", token.GetHeader())
 		resp, err := client.Do(req)
 		if err != nil {
 			fmt.Println("Error exporting automation:", err)
