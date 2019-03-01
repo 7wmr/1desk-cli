@@ -13,6 +13,7 @@ import (
 )
 
 var automationID int
+var includeLinked bool
 
 // Automation json data.
 type Automation struct {
@@ -49,7 +50,13 @@ var exportCmd = &cobra.Command{
 		}
 		client := &http.Client{Transport: tr}
 
-		var url string = fmt.Sprintf("https://%s/api/automaton-import-export/export/%d", context.Domain, automationID)
+		// Arguments to be appended to API call.
+		arguments := "includeLinkedAutomaton=false"
+		if includeLinked {
+			arguments += "includeLinkedAutomaton=true"
+		}
+
+		var url string = fmt.Sprintf("https://%s/api/automaton-import-export/export/%d?%s", context.Domain, automationID, arguments)
 		if debugFlag {
 			fmt.Println("Debug request url:", url)
 		}
@@ -126,4 +133,6 @@ func init() {
 
 	exportCmd.Flags().IntVarP(&automationID, "id", "i", 0, "Automation current ID")
 	exportCmd.MarkFlagRequired("id")
+
+	exportCmd.Flags().BoolVarP(&includeLinked, "linked", "l", false, "Include linked automations in export")
 }
