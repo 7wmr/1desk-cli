@@ -51,7 +51,7 @@ func (a *Auth) Decode() {
 }
 
 // GetToken will return the token provided for the specified user.
-func (a *Auth) GetToken(context Context) (Token, error) {
+func (a *Auth) GetToken(context *Context) (Token, error) {
 	var token Token
 
 	tr := &http.Transport{

@@ -61,9 +61,13 @@ var exportCmd = &cobra.Command{
 		}
 
 		auth := conf.Auth{Encoded: context.Auth}
-		token := auth.GetToken(context)
+		token, err := auth.GetToken(context)
+		if err != nil {
+			fmt.Println("Error getting authentication token:", err)
+			return
+		}
 
-		req.Header.Add("Authorization", token.GetHeader())
+		req.Header.Add(token.GetHeader())
 		resp, err := client.Do(req)
 		if err != nil {
 			fmt.Println("Error exporting automation:", err)
