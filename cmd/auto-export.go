@@ -16,9 +16,9 @@ var automationID int
 
 // Automation json data.
 type Automation struct {
-	Name      string `json:"name"`
-	ID        int    `json:"id"`
-	VersionID int    `json:versionId`
+	Name          string `json:"name"`
+	ID            int    `json:"id"`
+	VersionNumber int    `json:versionNumber`
 }
 
 // GetFileName get the XML file name for automation export.
@@ -26,7 +26,7 @@ func (e *Automation) GetFileName() string {
 	return fmt.Sprintf(
 		"%s_v%d_%d.json",
 		e.Name,
-		e.VersionID,
+		e.VersionNumber,
 		e.ID)
 }
 
