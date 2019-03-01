@@ -32,13 +32,13 @@ func (e *Automation) GetFileName() string {
 }
 
 // PrettyJSON returns indented JSON data.
-func PrettyJSON(in string) string {
-	var out bytes.Buffer
-	err := json.Indent(&out, []byte(in), "", "\t")
+func PrettyJSON(data []byte) []byte {
+	var pretty bytes.Buffer
+	err := json.Indent(&pretty, data, "", "\t")
 	if err != nil {
 		return in
 	}
-	return out.String()
+	return pretty
 }
 
 // exportCmd represents the export command
@@ -112,7 +112,7 @@ var exportCmd = &cobra.Command{
 			return
 		}
 
-		fileLength, err := file.WriteString(PrettyJSON(automationJSON))
+		fileLength, err := file.WriteString(PrettyJSON(automationJSON).String())
 		if err != nil {
 			fmt.Println("Error issue writing to file:", err)
 			file.Close()
