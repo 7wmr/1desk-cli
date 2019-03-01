@@ -36,7 +36,7 @@ func PrettyJSON(data string) string {
 	var pretty bytes.Buffer
 	err := json.Indent(&pretty, []byte(data), "", "\t")
 	if err != nil {
-		return in
+		return data
 	}
 	return pretty.String()
 }
