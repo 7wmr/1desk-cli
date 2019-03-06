@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	"gopkg.in/yaml.v2"
 )
@@ -62,6 +63,9 @@ func (c *Config) UpdateContext(name string, auth Auth, domain string) {
 
 // LoadConfig to load yaml config from file.
 func (c *Config) LoadConfig(path string) error {
+	if c.ExistsConfig(path) != true {
+		return errors.New("Error config file not found: " + path)
+	}
 	file, err := ioutil.ReadFile(path)
 	if err != nil {
 		fmt.Println("Error loading config file:", err)
@@ -88,4 +92,14 @@ func (c *Config) WriteConfig(path string) error {
 		return err
 	}
 	return nil
+}
+
+// ExistsConfig reports whether the config file exists.
+func (c *Config) ExistsConfig(name string) bool {
+	if _, err := os.Stat(name); err != nil {
+		if os.IsNotExist(err) {
+			return false
+		}
+	}
+	return true
 }
