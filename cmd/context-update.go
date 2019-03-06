@@ -24,7 +24,10 @@ var updateCmd = &cobra.Command{
 			auth := conf.Auth{Username: updateUsername, Password: updatePassword}
 			config.UpdateContext(updateName, auth, updateDomain)
 
-			config.WriteConfig(cfgPath)
+			err := config.WriteConfig(cfgPath)
+			if err != nil {
+				return
+			}
 			fmt.Println("Context updated:", updateName)
 		} else {
 			fmt.Println("Context name not valid:", updateName)
