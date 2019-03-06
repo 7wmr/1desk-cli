@@ -42,6 +42,15 @@ func (c *Config) GetContext(name string) (*Context, error) {
 	return nil, errors.New("Context not found")
 }
 
+// AddContext adds new context to config.
+func (c *Config) AddContext(context Context) error {
+	if c.Validate(context.Name) {
+		return errors.New("Context already exists")
+	}
+	c.Contexts = append(c.Contexts, context)
+	return nil
+}
+
 // GetCurrentContext returns the current context.
 func (c *Config) GetCurrentContext() (*Context, error) {
 	return c.GetContext(c.CurrentContext)
