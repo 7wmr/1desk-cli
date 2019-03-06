@@ -64,7 +64,12 @@ func (c *Config) UpdateContext(name string, auth Auth, domain string) {
 // LoadConfig to load yaml config from file.
 func (c *Config) LoadConfig(path string) error {
 	if c.ExistsConfig(path) != true {
-		return errors.New("Error config file not found: " + path)
+		fmt.Println("Warning config file not found:", path)
+		err := c.WriteConfig(path)
+		if err != nil {
+			return err
+		}
+		fmt.Println("Created config file:", path)
 	}
 	file, err := ioutil.ReadFile(path)
 	if err != nil {
