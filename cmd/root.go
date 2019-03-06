@@ -60,6 +60,8 @@ func initConfig() {
 	}
 
 	// Load config from file
-	config.LoadConfig(cfgPath)
-
+	err = config.LoadConfig(cfgPath)
+	if err != nil {
+		return
+	}
 }

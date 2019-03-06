@@ -75,15 +75,16 @@ func (c *Config) LoadConfig(path string) {
 }
 
 // WriteConfig to write any changed config back to file.
-func (c *Config) WriteConfig(path string) {
+func (c *Config) WriteConfig(path string) error {
 	data, err := yaml.Marshal(c)
 	if err != nil {
 		fmt.Println("Error parsing config to yaml:", err)
-		return
+		return err
 	}
 	err = ioutil.WriteFile(path, data, 0644)
 	if err != nil {
 		fmt.Println("Error writing config to file:", err)
-		return
+		return err
 	}
+	return nil
 }
