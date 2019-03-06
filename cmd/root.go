@@ -61,6 +61,7 @@ func initConfig() {
 
 	// Load config from file
 	if err := config.LoadConfig(cfgPath); err != nil {
+		fmt.Println(err)
 		os.Exit(1)
 	}
 }
