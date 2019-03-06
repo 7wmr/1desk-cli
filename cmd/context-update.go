@@ -10,7 +10,6 @@ import (
 
 var updateName string
 var updateUsername string
-var updatePassword string
 var updateDomain string
 
 // updateCmd represents the update command
@@ -21,7 +20,8 @@ var updateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		if config.Validate(updateName) {
 
-			auth := conf.Auth{Username: updateUsername, Password: updatePassword}
+			auth := conf.Auth{Username: updateUsername}
+			auth.PromptPassword()
 			config.UpdateContext(updateName, auth, updateDomain)
 
 			err := config.WriteConfig(cfgPath)
@@ -44,9 +44,6 @@ func init() {
 
 	updateCmd.Flags().StringVarP(&updateUsername, "username", "u", "", "Context username")
 	updateCmd.MarkFlagRequired("username")
-
-	updateCmd.Flags().StringVarP(&updatePassword, "password", "p", "", "Context password")
-	updateCmd.MarkFlagRequired("password")
 
 	updateCmd.Flags().StringVarP(&updateDomain, "domain", "d", "", "Context domain")
 
