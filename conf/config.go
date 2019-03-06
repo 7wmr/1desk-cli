@@ -61,17 +61,18 @@ func (c *Config) UpdateContext(name string, auth Auth, domain string) {
 }
 
 // LoadConfig to load yaml config from file.
-func (c *Config) LoadConfig(path string) {
+func (c *Config) LoadConfig(path string) error {
 	file, err := ioutil.ReadFile(path)
 	if err != nil {
 		fmt.Println("Error loading config file:", err)
-		return
+		return err
 	}
 	err = yaml.Unmarshal(file, c)
 	if err != nil {
 		fmt.Println("Error parsing yaml config file:", err)
-		return
+		return err
 	}
+	return nil
 }
 
 // WriteConfig to write any changed config back to file.

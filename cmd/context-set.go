@@ -16,7 +16,10 @@ var setCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		if config.Validate(contextName) {
 			config.CurrentContext = contextName
-			config.WriteConfig(cfgPath)
+			err := config.WriteConfig(cfgPath)
+			if err != nil {
+				return
+			}
 			fmt.Println("Context set:", contextName)
 		} else {
 			fmt.Println("Context invalid:", contextName)
