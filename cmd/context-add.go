@@ -19,7 +19,7 @@ var addCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		auth := conf.Auth{Username: addUsername, Password: addPassword}
 		context := conf.Context{Auth: auth.Encode(), Domain: addDomain, Name: addName}
-		config.Contexts = append(config.Contexts, context)
+		config.AddContext(context)
 		config.WriteConfig(cfgPath)
 	},
 }
