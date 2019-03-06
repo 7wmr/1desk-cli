@@ -8,7 +8,6 @@ import (
 
 var addName string
 var addUsername string
-var addPassword string
 var addDomain string
 
 // addCmd represents the add command
@@ -17,7 +16,8 @@ var addCmd = &cobra.Command{
 	Short: "Add a AiT instance context to local config",
 	Long:  `TBC`,
 	Run: func(cmd *cobra.Command, args []string) {
-		auth := conf.Auth{Username: addUsername, Password: addPassword}
+		auth := conf.Auth{Username: addUsername}
+		auth.PromptPassword()
 		context := conf.Context{Auth: auth.Encode(), Domain: addDomain, Name: addName}
 		config.AddContext(context)
 		config.WriteConfig(cfgPath)
@@ -32,9 +32,6 @@ func init() {
 
 	addCmd.Flags().StringVarP(&addUsername, "username", "u", "", "Instance username")
 	addCmd.MarkFlagRequired("username")
-
-	addCmd.Flags().StringVarP(&addPassword, "password", "p", "", "Instance password")
-	addCmd.MarkFlagRequired("password")
 
 	addCmd.Flags().StringVarP(&addDomain, "domain", "d", "", "Instance domain")
 	addCmd.MarkFlagRequired("domain")

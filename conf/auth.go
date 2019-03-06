@@ -11,6 +11,8 @@ import (
 
 	b64 "encoding/base64"
 	"encoding/json"
+
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 // Auth contains username and password (decoded)
@@ -86,4 +88,11 @@ func (a *Auth) GetToken(context *Context) (Token, error) {
 	json.Unmarshal(body, &token)
 
 	return token, nil
+}
+
+// PromptPassword get password from command prompt
+func (a *Auth) PromptPassword() {
+	fmt.Println("Enter context password: ")
+	password, _ := terminal.ReadPassword(0)
+	a.Password = string(password)
 }
