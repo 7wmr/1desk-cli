@@ -11,7 +11,7 @@ var contextName string
 // setCmd represents the set command
 var setCmd = &cobra.Command{
 	Use:   "set",
-	Short: "Set the current AiT instance",
+	Short: "Set the current 1Desk instance context.",
 	Long:  `XXXXX`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if config.Validate(contextName) {

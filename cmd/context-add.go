@@ -13,7 +13,7 @@ var addDomain string
 // addCmd represents the add command
 var addCmd = &cobra.Command{
 	Use:   "add",
-	Short: "Add a AiT instance context to local config",
+	Short: "Add a new 1Desk instance context.",
 	Long:  `TBC`,
 	Run: func(cmd *cobra.Command, args []string) {
 		auth := conf.Auth{Username: addUsername}
