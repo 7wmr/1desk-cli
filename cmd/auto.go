@@ -7,7 +7,7 @@ import (
 // autoCmd represents the auto command
 var autoCmd = &cobra.Command{
 	Use:   "auto",
-	Short: "A brief description of your command",
+	Short: "1Desk IPautomata automation commands",
 	Long:  `TBD`,
 }
 

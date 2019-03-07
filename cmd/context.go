@@ -7,7 +7,7 @@ import (
 // contextCmd represents the context command
 var contextCmd = &cobra.Command{
 	Use:   "context",
-	Short: "A brief description of your command",
+	Short: "Commands to administrer 1Desk instance contexts.",
 	Long:  `TBC`,
 }
 

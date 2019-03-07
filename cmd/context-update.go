@@ -15,7 +15,7 @@ var updateDomain string
 // updateCmd represents the update command
 var updateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "A brief description of your command",
+	Short: "Update an existing 1Desk instance context",
 	Long:  `TBC`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if config.Validate(updateName) {
