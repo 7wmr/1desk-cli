@@ -1,5 +1,0 @@
-currentcontext: eu-demo
-contexts:
-- auth: ***************
-  domain: eu1.demo.1desk.ai
-  name: eu-demo
