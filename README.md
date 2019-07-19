@@ -30,7 +30,7 @@ ln -s ~/repos/1desk-cli/.1desk.yaml ~/.1desk.yaml
 ## Deploy
 
 ```bash
-brew tap ipsoft-tools/homebrew-tools
+brew tap 7wmr/homebrew-tools
 ```
 
 ```bash
